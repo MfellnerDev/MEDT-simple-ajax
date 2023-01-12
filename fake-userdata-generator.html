@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX - Random user data | Manuel Fellner ; 3BHIT</title>
+    <script src="resources/prettyprint.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn:eq(0)").click(function () {
+                //AJAX API-Requst an randomuser.me/api/, wir möchten JSON
+                $.ajax({
+                    url: 'https://randomuser.me/api/',
+                    dataType: 'json',
+                    //wenn die Request erfolgreich ist
+                    success: function (data) {
+                        //falls vorhanden, vorherige Daten löschen
+                        $("#generateddata").remove();
+                        //wird in ein ansehliches format umgewandelt
+                        let humanReadableJSON = prettyPrint(data);
+                        humanReadableJSON.id = "generateddata";
+                        //wird an den Body als child angehängt
+                        document.body.appendChild(humanReadableJSON);
+
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Fake Userdata generator</h1>
+    <div id="div">
+    <p id="hello"></p>
+    </div>
+    <button id="btn">Generate random, personal user data!</button>
+    <br>
+    <p>(Tipp: "DEPTH REACHED" means that there is more data to see. Just klick the text!)</p>
+</body>
+<footer>
+    <p>Manuel Fellner | 3BHIT</p>
+    <a href="https://randomuser.me/">API</a>
+</footer>
+</html>
